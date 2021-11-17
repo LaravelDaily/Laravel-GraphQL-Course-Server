@@ -8,6 +8,10 @@ type Query {
     tasks: [Task!]! @all
 }
 
+type Mutation {
+    createTask(title: String!): Task @create
+}
+
 type Task {
     id: ID!
     title: String!
