@@ -10,6 +10,7 @@ type Query {
 
 type Mutation {
     createTask(title: String!): Task @create
+    deleteTask(id: ID!): Task @delete
 }
 
 type Task {
