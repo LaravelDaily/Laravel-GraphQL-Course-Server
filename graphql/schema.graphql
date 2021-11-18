@@ -9,7 +9,7 @@ type Query {
 }
 
 type Mutation {
-    createTask(title: String!): Task @create
+    createTask(title: String! @rules(apply: ["min:3", "max:255"])): Task @create
     updateTask(id: ID!, title: String!): Task @update
     deleteTask(id: ID!): Task @delete
 }
