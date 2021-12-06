@@ -39,3 +39,9 @@ Route::post('/sanctum/token', function (Request $request) {
 
     return $user->createToken($request->device_name)->plainTextToken;
 });
+
+Route::post('/sanctum/token/destroy', function (Request $request) {
+    $request->user()->currentAccessToken()->delete();
+
+    return response()->json(null, 204);
+})->middleware('auth:sanctum');
