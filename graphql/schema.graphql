@@ -5,18 +5,19 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
-    tasks: [Task!]! @paginate
+    tasks: [Task!]! @paginate @whereAuth(relation: "user")
     me: User @auth
 }
 
 type Mutation {
-    createTask(title: String! @rules(apply: ["min:3", "max:255"])): Task @create
+    createTask(title: String! @rules(apply: ["min:3", "max:255"])): Task @create @inject(context: "user.id", name: "user_id")
     updateTask(id: ID!, title: String!): Task @update
-    deleteTask(id: ID!): Task @delete
+    deleteTask(id: ID!): Task @delete @whereAuth(relation: "user")
 }
 
 type Task {
     id: ID!
+    user: User! @belongsTo
     title: String!
     created_at: DateTime!
     updated_at: DateTime!
